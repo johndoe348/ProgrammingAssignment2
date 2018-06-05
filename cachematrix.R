@@ -1,15 +1,15 @@
 ## Write a short comment describing this function
 ## Function that takes a matrix as an argument and caches 
 ## the matrix until the function is called again
-makeCacheMatrix <- function(x = matrix()) {
-        m <- NULL
-        set <- function(y){
-                x <<- y
-                m <<- NULL
+makeCacheMatrix <- function(matrixInput = matrix()) {
+        inverse <- NULL
+        set <- function(newMatrix){
+                matrixInput <<- newMatrix
+                inverse <<- NULL
         }
-        get <- function() x
-        setMatrix <- function(matrix) m <<- matrix
-        getMatrix <- function() m
+        get <- function() matrixInput
+        setMatrix <- function(inv) inverse <<- inv
+        getMatrix <- function() inverse
         list(set = set, get = get,
              setMatrix = setMatrix,
              getMatrix = getMatrix)
@@ -22,15 +22,15 @@ makeCacheMatrix <- function(x = matrix()) {
 ## and checks for cached data, if ther is no cached data
 ## then it calculates the inverse of the matrix and passes the result
 ## back to makeCacheMatrix for it to be cached
-cacheSolve <- function(x, ...) {
+cacheSolve <- function(funList) {
         ## Return a matrix that is the inverse of 'x'
-        m <- x$getMatrix()
-        if(!is.null(m)){
-                print("This is cached data")
-                return(m)
+        inverse <- funList$getMatrix()
+        if(!is.null(inverse)){
+                print("This is cached inverse matrix")
+                return(inverse)
         }
-        data <- x$get()
-        m <- solve(data)
-        x$setMatrix(m)
-        m
+        data <- funList$get()
+        inverse <- solve(data)
+        funList$setMatrix(inverse)
+        inverse
 }
