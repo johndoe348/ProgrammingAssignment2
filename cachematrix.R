@@ -1,4 +1,3 @@
-## Write a short comment describing this function
 ## Function that takes a matrix as an argument and caches 
 ## the matrix until the function is called again
 makeCacheMatrix <- function(matrixInput = matrix()) {
